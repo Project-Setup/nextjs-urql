@@ -1,34 +1,89 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Setup
 
-## Getting Started
+### [Node](https://github.com/nvm-sh/nvm)
 
-First, run the development server:
+1. [install nvm](https://github.com/nvm-sh/nvm#installing-and-updating) if not done yet
+1. use latest node version
+    ```sh
+    nvm use node || nvm install node
+    ```
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+### [NextJs](https://nextjs.org)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. create nextjs app in the parent folder
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+    ```sh
+    npx create-next-app@latest --typescript <project-name>
+    # or
+    pnpm create next-app -- --typescript <project-name>
+    ```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### [PNPM](https://pnpm.io/)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+1. pin nodejs version in the project
 
-## Learn More
+    ```sh
+    node -v > .nvmrc
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+1. remove the `package.json` and `node_modules/`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    ```sh
+    rm package.json
+    rm -rf node_modules
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. install pnpm globally
 
-## Deploy on Vercel
+    ```sh
+    npm i -g pnpm
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. install dependencies
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+    ```sh
+    pnpm install
+    ```
+
+### [Eslint and Prettier](https://dev.to/robertcoopercode/using-eslint-and-prettier-in-a-typescript-project-53jb)
+
+1. remove `.eslintrc.json`
+
+    ```sh
+    rm .eslintrc.json
+    ```
+
+1. install prettier
+
+    ```sh
+    pnpm i -D prettier eslint-config-prettier eslint-plugin-prettier
+    ```
+
+1. add `.eslintrc.js`
+
+    ```js
+    module.exports = {
+        extends: ['next', 'prettier', 'plugin:prettier/recommended'],
+    };
+    ```
+
+1. add `.prettier.js`
+
+    ```js
+    /** @type {import('prettier').Config} */
+    module.exports = {
+        tabWidth: 2,
+        overrides: [
+            {
+                files: '*.md',
+                options: {
+                    tabWidth: 4,
+                },
+            },
+        ],
+        semi: true,
+        singleQuote: true,
+        printWidth: 80,
+        trailingComma: 'es5',
+    };
+    ```
