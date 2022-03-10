@@ -87,3 +87,46 @@
         trailingComma: 'es5',
     };
     ```
+
+### [Jest](https://nextjs.org/docs/testing#setting-up-jest-with-the-rust-compiler)
+
+1. install jest and react-testing-library
+    ```sh
+    pnpm i -D jest @testing-library/react @testing-library/jest-dom
+    ```
+1. add `__tests__/` folder
+    ```sh
+    mkdir -p __tests__
+    ```
+1. add `__tests__/jest.config.js`
+
+    ```js
+    const nextJest = require('next/jest');
+
+    const createJestConfig = nextJest({
+        dir: './',
+    });
+
+    const customJestConfig = {
+        setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+        moduleDirectories: ['node_modules', '<rootDir>/'],
+        testRegex: '__tests__/.*\\.test\\.tsx?$',
+        testEnvironment: 'jest-environment-jsdom',
+    };
+
+    module.exports = createJestConfig(customJestConfig);
+    ```
+
+1. add `__tests__/jest.setup.ts`
+    ```ts
+    import '@testing-library/jest-dom/extend-expect';
+    ```
+1. add to `package.json`
+    ```json
+    {
+        "scripts": {
+            "test": "jest --config ./__tests__/jest.config.js",
+            "test:watch": "jest --config ./__tests__/jest.config.js --watch"
+        }
+    }
+    ```
