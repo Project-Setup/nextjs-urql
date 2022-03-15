@@ -11,8 +11,7 @@ exports[`Home renders homnepage unchanged 1`] = `
       <h1
         class="title"
       >
-        Welcome to
-         
+        Welcome to 
         <a
           href="https://nextjs.org"
         >

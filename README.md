@@ -130,3 +130,92 @@
         }
     }
     ```
+
+### [URQL](https://www.npmjs.com/package/next-urql)
+
+1. install urql and nextjs bindings
+
+    ```sh
+    pnpm i urql graphql next-urql react-is @urql/exchange-graphcache
+    pnpm i -D @urql/devtools
+    ```
+
+1. add `lib/urql/getUrqlClientOptions.ts`
+
+    ```ts
+    import { devtoolsExchange } from '@urql/devtools';
+    import { cacheExchange } from '@urql/exchange-graphcache';
+    import { NextUrqlClientConfig } from 'next-urql';
+    import { debugExchange, dedupExchange, fetchExchange } from 'urql';
+    import getIsClient from 'lib/utils/getIsClient';
+
+    const getUrqlClientOptions: NextUrqlClientConfig = (ssrCache) => {
+        const isClient = typeof window !== 'undefined';
+        const isProd = process.env.NEXT_PUBLIC_ENV === 'production';
+        return {
+            url: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT || '',
+            exchanges: [
+                ...(isClient && !isProd
+                    ? [devtoolsExchange, debugExchange]
+                    : []),
+                dedupExchange,
+                cacheExchange({}),
+                ssrCache, // ssrExchange has to come before fetchExchange
+                fetchExchange,
+            ],
+        };
+    };
+
+    export default getUrqlClientOptions;
+    ```
+
+1. add graphql query, i.e. `graphql/query/userQuery.ts`
+
+    ```ts
+    export const USER_QUERY = `
+        query {
+            post(id: 1) {
+            id
+            title
+            body
+            }
+        }
+    `;
+    ```
+
+1. instantiate graphql client in one of the `getStaticProps` or `getServerSideProps` methods
+
+    ```ts
+    import type { GetStaticProps } from 'next';
+    import getUrqlClientOptions from 'lib/urql/getUrqlClientOptions';
+    import { initUrqlClient } from 'next-urql';
+    import { USER_QUERY } from 'graphql/query/userQuery';
+    import { ssrExchange, useQuery } from 'urql';
+
+    export const getStaticProps: GetStaticProps<PageProps> = async () => {
+        const ssrCache = ssrExchange({ isClient: false });
+        const urqlClientOption = getUrqlClientOptions(ssrCache);
+        const client = initUrqlClient(urqlClientOption, false);
+
+        const result = await client?.query(USER_QUERY).toPromise();
+
+        return {
+            props: {
+                urqlState: ssrCache.extractData(),
+            },
+            revalidate: 600,
+        };
+    };
+    ```
+
+1. wrap the page with `withUrqlClient`
+
+    ```ts
+    import { withUrqlClient, initUrqlClient, SSRData } from 'next-urql';
+
+    export default withUrqlClient(getUrqlClientOptions, {
+        neverSuspend: true, // don't use Suspend on server side
+        ssr: false, // don't generate getInitialProps for the page
+        staleWhileRevalidate: true, // tell client to do network-only data fetching again if the cached data is outdated
+    })(TestGraphql);
+    ```
