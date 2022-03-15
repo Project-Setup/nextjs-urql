@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "remove-branches": "git branch | grep -v \"main\" | xargs git branch -D",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
