@@ -136,7 +136,7 @@
 1. install urql and nextjs bindings
 
     ```sh
-    pnpm i urql graphql next-urql react-is @urql/exchange-graphcache
+    pnpm i urql graphql next-urql react-is @urql/core @urql/exchange-graphcache
     pnpm i -D @urql/devtools
     ```
 
