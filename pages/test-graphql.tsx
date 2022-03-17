@@ -2,8 +2,12 @@ import type { GetStaticProps, NextPage } from 'next';
 import styles from 'styles/Home.module.css';
 import { withUrqlClient, initUrqlClient, SSRData } from 'next-urql';
 import { ssrExchange, useQuery } from 'urql';
-import { USER_QUERY } from 'graphql/query/userQuery';
 import getUrqlClientOptions from 'lib/urql/getUrqlClientOptions';
+import {
+  GetPostByIdDocument,
+  GetPostByIdQuery,
+  GetPostByIdQueryVariables,
+} from 'graphql/generated';
 interface PageProps {
   urqlState: SSRData;
 }
@@ -13,7 +17,11 @@ export const getStaticProps: GetStaticProps<PageProps> = async () => {
   const urqlClientOption = getUrqlClientOptions(ssrCache);
   const client = initUrqlClient(urqlClientOption, false);
 
-  const result = await client?.query(USER_QUERY).toPromise();
+  const result = await client
+    ?.query<GetPostByIdQuery, GetPostByIdQueryVariables>(GetPostByIdDocument, {
+      id: '1',
+    })
+    .toPromise();
 
   return {
     props: {
@@ -24,7 +32,12 @@ export const getStaticProps: GetStaticProps<PageProps> = async () => {
 };
 
 const TestGraphql: NextPage<PageProps> = (props) => {
-  const [result] = useQuery({ query: USER_QUERY });
+  const [result] = useQuery<GetPostByIdQuery, GetPostByIdQueryVariables>({
+    query: GetPostByIdDocument,
+    variables: {
+      id: '1',
+    },
+  });
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Graphql Tester</h1>
