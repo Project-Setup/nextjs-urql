@@ -7,3 +7,7 @@
 ## Provision
 
 -   see [provision.md](./docs/provision.md) for provisioning steps
+
+## Development
+
+-   see [development.md](./docs/development.md) for development flow
