@@ -208,16 +208,29 @@
     };
     ```
 
-1. wrap the page with `withUrqlClient`
+1. add `lib/urql/withStaticUrqlClient.ts` to wrap static generated pages
 
     ```ts
-    import { withUrqlClient, initUrqlClient, SSRData } from 'next-urql';
+    import { withUrqlClient } from 'next-urql';
+    import getUrqlClientOptions from './getUrqlClientOptions';
 
-    export default withUrqlClient(getUrqlClientOptions, {
-        neverSuspend: true, // don't use Suspend on server side
+    const withStaticUrqlClient = withUrqlClient(getUrqlClientOptions, {
+        neverSuspend: true, // don't use Suspense on server side
         ssr: false, // don't generate getInitialProps for the page
         staleWhileRevalidate: true, // tell client to do network-only data fetching again if the cached data is outdated
-    })(TestGraphql);
+    });
+
+    export default withStaticUrqlClient;
+    ```
+
+1. wrap the page with `withStaticUrqlClient`
+
+    ```ts
+    import withStaticUrqlClient from 'lib/urql/withStaticUrqlClient';
+
+    // ...
+
+    export default withStaticUrqlClient(Page);
     ```
 
 ## [GraqphQL Codegen](https://www.graphql-code-generator.com/docs/guides/react#optimal-configuration-for-apollo-and-urql)
