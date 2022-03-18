@@ -229,7 +229,7 @@
     pnpm i -D @graphql-codegen/cli @graphql-codegen/typed-document-node @graphql-codegen/typescript @graphql-codegen/typescript-operations
     ```
 
-2. add `lib/graphql-codegen/codegen.yml`
+1. add `lib/graphql-codegen/codegen.yml`
 
     ```yml
     schema: <html-to-graphql-endpoint-or-path-to-server-graphql>
@@ -244,7 +244,7 @@
         fetcher: fetch
     ```
 
-3. add to `package.json`
+1. add to `package.json`
     ```json
     {
         "scripts": {
