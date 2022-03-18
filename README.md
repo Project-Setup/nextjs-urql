@@ -1,5 +1,4 @@
-# Nextjs Website
-
+# Allio Website Frontend
 ## Setup
 
 -   see [setup.md](./docs/setup.md) for how this repo was setup

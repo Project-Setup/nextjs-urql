@@ -1,5 +1,5 @@
 {
-  "name": "nextjs-plasmic",
+  "name": "frontend-rework",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -42,5 +42,23 @@
     "jest": "^27.5.1",
     "prettier": "^2.5.1",
     "typescript": "4.6.2"
-  }
+  },
+  "description": "Allio Website Frontend",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/alliofintech/web/frontend-rework.git"
+  },
+  "keywords": [
+    "frontend",
+    "website",
+    "rework",
+    "nextjs",
+    "urql"
+  ],
+  "author": "Allio",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/alliofintech/web/frontend-rework/issues"
+  },
+  "homepage": "https://gitlab.com/alliofintech/web/frontend-rework#readme"
 }
