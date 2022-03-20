@@ -55,7 +55,7 @@
     "nextjs",
     "urql"
   ],
-  "author": "Allio",
+  "author": "David Chen",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Project-Setup/nextjs-urql/issues"
