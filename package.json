@@ -1,5 +1,5 @@
 {
-  "name": "frontend-rework",
+  "name": "nextjs-urql",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -43,10 +43,10 @@
     "prettier": "^2.5.1",
     "typescript": "4.6.2"
   },
-  "description": "Allio Website Frontend",
+  "description": "NextJs + Urql (Lightweight GraphQL Endpoint)",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@gitlab.com/alliofintech/web/frontend-rework.git"
+    "url": "git+ssh://git@github.com/Project-Setup/nextjs-urql.git"
   },
   "keywords": [
     "frontend",
@@ -58,7 +58,7 @@
   "author": "Allio",
   "license": "MIT",
   "bugs": {
-    "url": "https://gitlab.com/alliofintech/web/frontend-rework/issues"
+    "url": "https://github.com/Project-Setup/nextjs-urql/issues"
   },
-  "homepage": "https://gitlab.com/alliofintech/web/frontend-rework#readme"
+  "homepage": "https://github.com/Project-Setup/nextjs-urql#readme"
 }

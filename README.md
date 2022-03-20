@@ -1,4 +1,4 @@
-# Allio Website Frontend
+# NextJs + Urql
 ## Setup
 
 -   see [setup.md](./docs/setup.md) for how this repo was setup
