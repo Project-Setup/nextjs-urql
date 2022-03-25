@@ -4,7 +4,7 @@
 
 ## Setup
 
--   see [setup.md](./docs/setup.md) for how this repo was setup
+-   see [setup.md](./docs/setup.md) for how this repo was set up
 
 ## Provision
 

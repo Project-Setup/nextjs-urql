@@ -1,6 +1,6 @@
 import type { GetStaticProps, NextPage } from 'next';
 import styles from 'styles/Home.module.css';
-import { initUrqlClient, SSRData } from 'next-urql';
+import { initUrqlClient, SSRData, WithUrqlState } from 'next-urql';
 import { ssrExchange, useQuery } from 'urql';
 import getUrqlClientOptions from 'lib/urql/getUrqlClientOptions';
 import {
@@ -10,11 +10,11 @@ import {
 } from 'graphql/generated';
 import withStaticUrqlClient from 'lib/urql/withStaticUrqlClient';
 
-export interface PageProps {
-  urqlState: SSRData;
-}
+export interface PageProps {}
 
-export const getStaticProps: GetStaticProps<PageProps> = async () => {
+export interface StaticProps extends WithUrqlState, PageProps {}
+
+export const getStaticProps: GetStaticProps<StaticProps> = async () => {
   const ssrCache = ssrExchange({ isClient: false });
   const urqlClientOption = getUrqlClientOptions(ssrCache);
   const client = initUrqlClient(urqlClientOption, false);
@@ -34,18 +34,22 @@ export const getStaticProps: GetStaticProps<PageProps> = async () => {
 };
 
 const TestGraphql: NextPage<PageProps> = (props) => {
-  const [result] = useQuery<GetPostByIdQuery, GetPostByIdQueryVariables>({
+  const [result, request] = useQuery<
+    GetPostByIdQuery,
+    GetPostByIdQueryVariables
+  >({
     query: GetPostByIdDocument,
     variables: {
       id: '1',
     },
   });
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Graphql Tester</h1>
       <div className={styles.grid}>
         <div className="graphql-container">
-          <button className={styles.card} type="button">
+          <button className={styles.card} type="button" onClick={request}>
             try fetch
           </button>
           <div className="grapql-result">
