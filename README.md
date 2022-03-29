@@ -4,12 +4,12 @@
 
 ## Setup
 
--   see [setup.md](./docs/setup.md) for how this repo was set up
+-   see [setup.md](./documents/setup.md) for how this repo was set up
 
 ## Provision
 
--   see [provision.md](./docs/provision.md) for provisioning steps
+-   see [provision.md](./documents/provision.md) for provisioning steps
 
 ## Development
 
--   see [development.md](./docs/development.md) for development flow
+-   see [development.md](./documents/development.md) for development flow
