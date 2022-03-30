@@ -66,7 +66,7 @@
     };
     ```
 
-1. add `.prettier.js`
+1. add `.prettierrc.js`
 
     ```js
     /** @type {import('prettier').Config} */
